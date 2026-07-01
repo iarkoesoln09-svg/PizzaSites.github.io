@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza & Chill - Доставка пиццы</title>
+    <style>
+        /* ПЕРЕМЕННЫЕ ДЛЯ КАРТИНОК */
+        :root {
+            --header-logo: url('https://avatars.mds.yandex.net/i?id=baeec3d311728b54392a02478335fab000ba2acd-5231675-images-thumbs&n=13');
+
+            --pizza-margarita: url('https://media.dodostatic.net/image/r:584x584/0198bf3d788b78d491891a6da5e94bf1.webp');
+            --pizza-pepperoni: url('https://media.dodostatic.net/image/r:584x584/0198bf39dda97082912be8d1f3f2b233.webp');
+            --pizza-four-cheese: url('https://media.dodostatic.net/image/r:584x584/0198bf40eb1171aabe90b1b3ce07c0c5.webp');
+            --pizza-hawaiian: url('https://media.dodostatic.net/image/r:584x584/0198bf530345746e98039478001d5108.webp');
+            --pizza-mushroom: url('https://media.dodostatic.net/image/r:584x584/019d393af27672229e382b37b1988f6c.webp');
+            --pizza-meat: url('https://media.dodostatic.net/image/r:584x584/0198bf3b88d5772695c7f9e557b5b196.webp');
+            --pizza-pesto: url('https://media.dodostatic.net/image/r:584x584/019a8aaa69cc7601b28736b1ebe7fc25.webp');
+            --pizza-diablo: url('https://media.dodostatic.net/image/r:584x584/0198bf439a007604880d0231be87cd3e.webp');
+
+            --drink-cola: url('https://media.dodostatic.net/image/r:584x584/019d6ca4971a70f9852314a83ef6120b.webp');
+            --drink-fanta: url('https://media.dodostatic.net/image/r:584x584/019b12ba62a176cea8f79a3f65ca55d7.webp');
+            --drink-sprite: url('https://media.dodostatic.net/image/r:584x584/019dd8478fbc74cfb6dc975656800e00.webp');
+            --drink-juice: url('https://media.dodostatic.net/image/r:584x584/019b4c9960c77879a52da528fbd7c43d.webp');
+            --drink-water: url('https://media.dodostatic.net/image/r:584x584/0197f8622bea796bbf371c7b54bb9fb4.webp');
+            --drink-tea: url('https://media.dodostatic.net/image/r:584x584/019a10895a1574bd8c59896230e5c5fa.webp');
+            --drink-cranberry: url('https://media.dodostatic.net/image/r:584x584/0197f86e0aa870ad8924478d3d37aa40.webp');
+            --drink-cherry: url('https://media.dodostatic.net/image/r:584x584/0197f86de6d4772aa558450aff00e595.webp');
+
+            --primary-color: #e63946;
+            --dark-color: #1d1d1d;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+        }
+
+        /* БАЗОВЫЕ СТИЛИ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ХЕДЕР */
+        header {
+            background-image: var(--header-bg);
+            background-size: cover;
+            background-position: center;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            border-bottom: 5px solid var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background-image: var(--header-logo);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            letter-spacing: 2px;
+        }
+
+        .logo h1 span {
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .cart-badge {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            padding: 5px 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        /* СТРАНИЦЫ */
+        #page-menu,
+        #page-drinks {
+            padding: 50px 0;
+        }
+
+        #page-cart {
+            padding: 50px 0;
+            display: none;
+        }
+
+        #page-menu {
+            display: block;
+        }
+
+        #page-drinks {
+            display: none;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .product-card h3 {
+            font-size: 1.6rem;
+            margin: 15px 0 8px;
+            color: var(--dark-color);
+        }
+
+        .product-card .description {
+            padding: 0 20px;
+            color: #666;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .product-card .price {
+            display: inline-block;
+            margin: 12px 0 10px;
+            padding: 6px 25px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+        }
+
+        .product-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 20px;
+        }
+
+        .product-counter button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e0e0e0;
+            background: #fafafa;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-color);
+        }
+
+        .product-counter button:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .product-counter .count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            min-width: 40px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+
+        .product-counter .count.max {
+            color: var(--primary-color);
+        }
+
+        /* ПРИВЯЗКА КАРТИНОК К ПИЦЦАМ */
+        .product-card[data-pizza="margarita"] .product-image {
+            background-image: var(--pizza-margarita);
+        }
+        .product-card[data-pizza="pepperoni"] .product-image {
+            background-image: var(--pizza-pepperoni);
+        }
+        .product-card[data-pizza="four-cheese"] .product-image {
+            background-image: var(--pizza-four-cheese);
+        }
+        .product-card[data-pizza="hawaiian"] .product-image {
+            background-image: var(--pizza-hawaiian);
+        }
+        .product-card[data-pizza="mushroom"] .product-image {
+            background-image: var(--pizza-mushroom);
+        }
+        .product-card[data-pizza="meat"] .product-image {
+            background-image: var(--pizza-meat);
+        }
+        .product-card[data-pizza="pesto"] .product-image {
+            background-image: var(--pizza-pesto);
+        }
+        .product-card[data-pizza="diablo"] .product-image {
+            background-image: var(--pizza-diablo);
+        }
+
+        .product-card[data-drink="cola"] .product-image {
+            background-image: var(--drink-cola);
+        }
+        .product-card[data-drink="fanta"] .product-image {
+            background-image: var(--drink-fanta);
+        }
+        .product-card[data-drink="sprite"] .product-image {
+            background-image: var(--drink-sprite);
+        }
+        .product-card[data-drink="juice"] .product-image {
+            background-image: var(--drink-juice);
+        }
+        .product-card[data-drink="water"] .product-image {
+            background-image: var(--drink-water);
+        }
+        .product-card[data-drink="tea"] .product-image {
+            background-image: var(--drink-tea);
+        }
+        .product-card[data-drink="cranberry"] .product-image {
+            background-image: var(--drink-cranberry);
+        }
+        .product-card[data-drink="cherry"] .product-image {
+            background-image: var(--drink-cherry);
+        }
+
+        /* КОРЗИНА + ОФОРМЛЕНИЕ */
+        .cart-checkout-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .cart-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-section h3 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+
+        .cart-items-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item .item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-item .item-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .cart-item .item-name {
+            font-weight: 600;
+        }
+
+        .cart-item .item-detail {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .cart-item .item-total {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .cart-total-block {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 3px solid var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .cart-total-block span:last-child {
+            color: var(--primary-color);
+        }
+
+        .empty-cart-block {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-cart-block .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart-block h3 {
+            font-size: 1.8rem;
+            color: #666;
+        }
+
+        .checkout-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-section h3 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: #fafafa;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit-order {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .btn-submit-order:hover {
+            background: #c62836;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-submit-order:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-clear-cart-small {
+            padding: 8px 20px;
+            background: #e0e0e0;
+            color: #555;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-clear-cart-small:hover {
+            background: #d0d0d0;
+        }
+
+        .cart-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* ФУТЕР */
+        footer {
+            background-image: var(--footer-bg);
+            background-size: cover;
+            background-position: center;
+            background-color: var(--dark-color);
+            color: #ccc;
+            padding: 40px 0 20px;
+            border-top: 5px solid var(--primary-color);
+            margin-top: 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-content h4 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-content h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .footer-content ul {
+            list-style: none;
+        }
+
+        .footer-content ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-content ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-content ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer-bottom span {
+            color: var(--primary-color);
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 992px) {
+            .cart-checkout-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                flex-direction: column;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            nav ul li a {
+                font-size: 0.95rem;
+                padding: 6px 12px;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .cart-checkout-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-section,
+            .checkout-section {
+                padding: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                text-align: center;
+            }
+
+            .footer-content h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .cart-header-actions {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .cart-item {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    ХЕДЕР
+    ============================================ -->
+    <header>
+        <div class="container header-content">
+            <div class="logo" onclick="showPage('menu')">
+                <div class="logo-icon"></div>
+                <h1>Pizza<span> & Chill</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a onclick="showPage('menu')">🍕 Пиццы</a></li>
+                    <li><a onclick="showPage('drinks')">🥤 Напитки</a></li>
+                    <li><a onclick="showPage('cart')">🛒 Корзина <span class="cart-badge" id="cartBadge">0</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================
+    СТРАНИЦА 1: ПИЦЦЫ (8 ШТУК)
+    ============================================ -->
+    <section id="page-menu">
+        <div class="container">
+            <h2 class="section-title">🍕 Наши пиццы</h2>
+            <div class="product-grid">
+
+                <div class="product-card" data-pizza="margarita">
+                    <div class="product-image"></div>
+                    <h3>Маргарита</h3>
+                    <p class="description">Томатный соус, моцарелла, базилик, оливковое масло.</p>
+                    <span class="price">450 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="margarita" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-margarita">0</span>
+                        <button class="btn-plus" data-id="margarita" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="pepperoni">
+                    <div class="product-image"></div>
+                    <h3>Пепперони</h3>
+                    <p class="description">Острая пепперони, томатный соус, моцарелла, орегано.</p>
+                    <span class="price">550 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="pepperoni" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-pepperoni">0</span>
+                        <button class="btn-plus" data-id="pepperoni" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="four-cheese">
+                    <div class="product-image"></div>
+                    <h3>Четыре сыра</h3>
+                    <p class="description">Моцарелла, пармезан, горгонзола, фонтина, сливки.</p>
+                    <span class="price">620 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="four-cheese" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-four-cheese">0</span>
+                        <button class="btn-plus" data-id="four-cheese" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="hawaiian">
+                    <div class="product-image"></div>
+                    <h3>Гавайская</h3>
+                    <p class="description">Томатный соус, моцарелла, курица, ананас, сладкий перец.</p>
+                    <span class="price">580 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="hawaiian" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-hawaiian">0</span>
+                        <button class="btn-plus" data-id="hawaiian" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="mushroom">
+                    <div class="product-image"></div>
+                    <h3>Грибная</h3>
+                    <p class="description">Томатный соус, моцарелла, шампиньоны, трюфельное масло.</p>
+                    <span class="price">530 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="mushroom" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-mushroom">0</span>
+                        <button class="btn-plus" data-id="mushroom" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="meat">
+                    <div class="product-image"></div>
+                    <h3>Мясная</h3>
+                    <p class="description">Томатный соус, моцарелла, пепперони, бекон, ветчина, фарш.</p>
+                    <span class="price">650 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="meat" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-meat">0</span>
+                        <button class="btn-plus" data-id="meat" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="pesto">
+                    <div class="product-image"></div>
+                    <h3>Песто</h3>
+                    <p class="description">Соус песто, моцарелла, вяленые томаты, кедровые орехи, пармезан.</p>
+                    <span class="price">690 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="pesto" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-pesto">0</span>
+                        <button class="btn-plus" data-id="pesto" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-pizza="diablo">
+                    <div class="product-image"></div>
+                    <h3>Диабло</h3>
+                    <p class="description">Острый томатный соус, пепперони, халапеньо, моцарелла, острый перец.</p>
+                    <span class="price">710 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="diablo" data-type="pizza">−</button>
+                        <span class="count" id="count-pizza-diablo">0</span>
+                        <button class="btn-plus" data-id="diablo" data-type="pizza">+</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    СТРАНИЦА 2: НАПИТКИ (8 ШТУК)
+    ============================================ -->
+    <section id="page-drinks">
+        <div class="container">
+            <h2 class="section-title">🥤 Напитки</h2>
+            <div class="product-grid">
+
+                <div class="product-card" data-drink="cola">
+                    <div class="product-image"></div>
+                    <h3>Кока-Кола</h3>
+                    <p class="description">Классическая газировка, 0.5 л.</p>
+                    <span class="price">120 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="cola" data-type="drink">−</button>
+                        <span class="count" id="count-drink-cola">0</span>
+                        <button class="btn-plus" data-id="cola" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="fanta">
+                    <div class="product-image"></div>
+                    <h3>Фанта</h3>
+                    <p class="description">Апельсиновая газировка, 0.5 л.</p>
+                    <span class="price">120 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="fanta" data-type="drink">−</button>
+                        <span class="count" id="count-drink-fanta">0</span>
+                        <button class="btn-plus" data-id="fanta" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="sprite">
+                    <div class="product-image"></div>
+                    <h3>Спрайт</h3>
+                    <p class="description">Лимонно-лаймовая газировка, 0.5 л.</p>
+                    <span class="price">120 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="sprite" data-type="drink">−</button>
+                        <span class="count" id="count-drink-sprite">0</span>
+                        <button class="btn-plus" data-id="sprite" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="juice">
+                    <div class="product-image"></div>
+                    <h3>Сок яблочный</h3>
+                    <p class="description">Натуральный яблочный сок, 0.5 л.</p>
+                    <span class="price">150 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="juice" data-type="drink">−</button>
+                        <span class="count" id="count-drink-juice">0</span>
+                        <button class="btn-plus" data-id="juice" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="water">
+                    <div class="product-image"></div>
+                    <h3>Вода минеральная</h3>
+                    <p class="description">Газированная минеральная вода, 0.5 л.</p>
+                    <span class="price">90 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="water" data-type="drink">−</button>
+                        <span class="count" id="count-drink-water">0</span>
+                        <button class="btn-plus" data-id="water" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="tea">
+                    <div class="product-image"></div>
+                    <h3>Чай холодный</h3>
+                    <p class="description">Освежающий холодный чай с лимоном, 0.5 л.</p>
+                    <span class="price">110 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="tea" data-type="drink">−</button>
+                        <span class="count" id="count-drink-tea">0</span>
+                        <button class="btn-plus" data-id="tea" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="cranberry">
+                    <div class="product-image"></div>
+                    <h3>Морс клюквенный</h3>
+                    <p class="description">Натуральный клюквенный морс, освежающий и полезный, 0.5 л.</p>
+                    <span class="price">160 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="cranberry" data-type="drink">−</button>
+                        <span class="count" id="count-drink-cranberry">0</span>
+                        <button class="btn-plus" data-id="cranberry" data-type="drink">+</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-drink="cherry">
+                    <div class="product-image"></div>
+                    <h3>Морс вишневый</h3>
+                    <p class="description">Натуральный вишневый морс, сладкий и терпкий, 0.5 л.</p>
+                    <span class="price">160 ₽</span>
+                    <div class="product-counter">
+                        <button class="btn-minus" data-id="cherry" data-type="drink">−</button>
+                        <span class="count" id="count-drink-cherry">0</span>
+                        <button class="btn-plus" data-id="cherry" data-type="drink">+</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+    СТРАНИЦА 3: КОРЗИНА + ОФОРМЛЕНИЕ 
+    ================================= -->
+    <section id="page-cart">
+        <div class="container">
+            <h3 class="section-title">🛒 Корзина и оформление</h3>
+            <div id="cartContent"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    ФУТЕР
+    ============================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>Pizza & Chill</h4>
+                    <p style="color: #aaa; line-height: 1.8;">
+                        Доставка вкусной пиццы<br>
+                        с 10:00 до 23:00<br>
+                        <span style="color: var(--primary-color);">8-228-993-52-67</span>
+                    </p>
+                </div>
+                <div>
+                    <h4>Меню</h4>
+                    <ul>
+                        <li><a onclick="showPage('menu')">Пиццы</a></li>
+                        <li><a onclick="showPage('drinks')">Напитки</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a onclick="showPage('cart')">Доставка и оплата</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 <span>Pizza & Chill</span> — Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+    JAVASCRIPT
+    ============================================ -->
+    <script>
+        // --- Данные товаров (8 пицц + 8 напитков) ---
+        const products = {
+            'pizza-margarita': { name: 'Маргарита', price: 450, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-pepperoni': { name: 'Пепперони', price: 550, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-four-cheese': { name: 'Четыре сыра', price: 620, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-hawaiian': { name: 'Гавайская', price: 580, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-mushroom': { name: 'Грибная', price: 530, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-meat': { name: 'Мясная', price: 650, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-pesto': { name: 'Песто', price: 690, count: 0, type: 'pizza', category: 'Пицца' },
+            'pizza-diablo': { name: 'Диабло', price: 710, count: 0, type: 'pizza', category: 'Пицца' },
+            'drink-cola': { name: 'Кока-Кола', price: 120, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-fanta': { name: 'Фанта', price: 120, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-sprite': { name: 'Спрайт', price: 120, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-juice': { name: 'Сок яблочный', price: 150, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-water': { name: 'Вода минеральная', price: 90, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-tea': { name: 'Чай холодный', price: 110, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-cranberry': { name: 'Морс клюквенный', price: 160, count: 0, type: 'drink', category: 'Напиток' },
+            'drink-cherry': { name: 'Морс вишневый', price: 160, count: 0, type: 'drink', category: 'Напиток' }
+        };
+
+        const MAX_QUANTITY = 10;
+
+        function getProductId(type, id) {
+            return `${type}-${id}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.btn-minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const type = this.dataset.type;
+                    changeQuantity(type, id, -1);
+                });
+            });
+
+            document.querySelectorAll('.btn-plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const type = this.dataset.type;
+                    changeQuantity(type, id, 1);
+                });
+            });
+
+            updateAllCounters();
+            updateBadge();
+            showPage('menu');
+        });
+
+        function showPage(page) {
+            const pages = {
+                menu: document.getElementById('page-menu'),
+                drinks: document.getElementById('page-drinks'),
+                cart: document.getElementById('page-cart')
+            };
+
+            for (const key in pages) {
+                pages[key].style.display = key === page ? 'block' : 'none';
+            }
+
+            if (page === 'cart') renderCart();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeQuantity(type, id, delta) {
+            const productId = getProductId(type, id);
+            const newCount = products[productId].count + delta;
+            if (newCount < 0 || newCount > MAX_QUANTITY) return;
+
+            products[productId].count = newCount;
+            updateCounterDisplay(type, id);
+            updateBadge();
+
+            const cartPage = document.getElementById('page-cart');
+            if (cartPage.style.display === 'block') {
+                renderCart();
+            }
+        }
+
+        function updateCounterDisplay(type, id) {
+            const productId = getProductId(type, id);
+            const countEl = document.getElementById(`count-${productId}`);
+            if (countEl) {
+                countEl.textContent = products[productId].count;
+                countEl.classList.toggle('max', products[productId].count === MAX_QUANTITY);
+            }
+        }
+
+        function updateAllCounters() {
+            for (const productId in products) {
+                const parts = productId.split('-');
+                const type = parts[0];
+                const id = parts[1];
+                updateCounterDisplay(type, id);
+            }
+        }
+
+        function updateBadge() {
+            let total = 0;
+            for (const id in products) {
+                total += products[id].count;
+            }
+            const badge = document.getElementById('cartBadge');
+            if (badge) badge.textContent = total;
+        }
+
+        function getTotalPrice() {
+            let total = 0;
+            for (const id in products) {
+                total += products[id].price * products[id].count;
+            }
+            return total;
+        }
+
+        function getCartItems() {
+            const items = [];
+            for (const id in products) {
+                if (products[id].count > 0) {
+                    items.push({
+                        id: id,
+                        name: products[id].name,
+                        price: products[id].price,
+                        count: products[id].count,
+                        category: products[id].category,
+                        total: products[id].price * products[id].count
+                    });
+                }
+            }
+            return items;
+        }
+
+        function clearCart() {
+            if (!confirm('Очистить корзину?')) return;
+            for (const id in products) {
+                products[id].count = 0;
+                const parts = id.split('-');
+                updateCounterDisplay(parts[0], parts[1]);
+            }
+            updateBadge();
+            renderCart();
+        }
+
+        // --- Отрисовка корзины + оформления (объединено) ---
+        function renderCart() {
+            const container = document.getElementById('cartContent');
+            const items = getCartItems();
+
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart-block">
+                        <div class="icon">🛒</div>
+                        <h3>Корзина пуста</h3>
+                        <p style="color:#999; margin-top:10px;">Выберите пиццы или напитки в меню</p>
+                        <button class="btn-submit-order" onclick="showPage('menu')" style="max-width:300px; margin:20px auto 0;">Перейти в меню</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let cartItemsHtml = '';
+            items.forEach(item => {
+                const parts = item.id.split('-');
+                const type = parts[0];
+                const id = parts[1];
+                const thumbStyle = `background-image: var(--${item.id.replace('-', '-')});`;
+                cartItemsHtml += `
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <div class="item-thumb" style="${thumbStyle}"></div>
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-detail">${item.count} шт. × ${item.price} ₽</div>
+                            </div>
+                        </div>
+                        <div class="item-total">${item.total} ₽</div>
+                    </div>
+                `;
+            });
+
+            let html = `
+                <div class="cart-checkout-wrapper">
+                    <!-- Левая колонка: Корзина -->
+                    <div class="cart-section">
+                        <div class="cart-header-actions">
+                            <h3>📦 Ваш заказ</h3>
+                            <button class="btn-clear-cart-small" onclick="clearCart()">🗑️ Очистить</button>
+                        </div>
+                        <div class="cart-items-list">
+                            ${cartItemsHtml}
+                        </div>
+                        <div class="cart-total-block">
+                            <span>Итого:</span>
+                            <span>${getTotalPrice()} ₽</span>
+                        </div>
+                    </div>
+
+                    <!-- Правая колонка: Оформление -->
+                    <div class="checkout-section">
+                        <h3>📝 Данные для доставки</h3>
+                        <form id="orderForm">
+                            <div class="form-group">
+                                <label for="userName">Ваше имя *</label>
+                                <input type="text" id="userName" placeholder="Иван Иванов" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userPhone">Телефон *</label>
+                                <input type="tel" id="userPhone" placeholder="+7 (999) 123-45-67" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="deliveryMethod">Способ получения</label>
+                                <select id="deliveryMethod">
+                                    <option value="pickup">Самовывоз</option>
+                                    <option value="delivery">Доставка</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="addressGroup" style="display:none;">
+                                <label for="userAddress">Адрес доставки</label>
+                                <input type="text" id="userAddress" placeholder="Улица, дом, квартира">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userComment">Комментарий к заказу</label>
+                                <textarea id="userComment" placeholder="Особые пожелания..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit-order">✅ Подтвердить заказ</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // --- Обработчики формы ---
+            const deliveryMethod = document.getElementById('deliveryMethod');
+            const addressGroup = document.getElementById('addressGroup');
+
+            if (deliveryMethod) {
+                deliveryMethod.addEventListener('change', function() {
+                    addressGroup.style.display = this.value === 'delivery' ? 'block' : 'none';
+                });
+            }
+
+            const orderForm = document.getElementById('orderForm');
+            if (orderForm) {
+                orderForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const name = document.getElementById('userName').value.trim();
+                    const phone = document.getElementById('userPhone').value.trim();
+                    const delivery = document.getElementById('deliveryMethod').value;
+                    const address = document.getElementById('userAddress').value.trim();
+                    const comment = document.getElementById('userComment').value.trim();
+
+                    if (!name || !phone) {
+                        alert('⚠️ Пожалуйста, заполните имя и телефон!');
+                        return;
+                    }
+
+                    if (delivery === 'delivery' && !address) {
+                        alert('⚠️ Пожалуйста, укажите адрес доставки!');
+                        return;
+                    }
+
+                    let orderText = '🍕 НОВЫЙ ЗАКАЗ!\n\n';
+                    const items = getCartItems();
+                    items.forEach(item => {
+                        orderText += `${item.name} - ${item.count} шт. × ${item.price} ₽ = ${item.total} ₽\n`;
+                    });
+                    orderText += `\n💰 Итого: ${getTotalPrice()} ₽`;
+                    orderText += `\n\n👤 Имя: ${name}`;
+                    orderText += `\n📞 Телефон: ${phone}`;
+                    orderText += `\n🚚 Способ: ${delivery === 'pickup' ? 'Самовывоз' : 'Доставка'}`;
+                    if (delivery === 'delivery') orderText += `\n📍 Адрес: ${address}`;
+                    if (comment) orderText += `\n💬 Комментарий: ${comment}`;
+
+                    alert(orderText + '\n\n✅ Заказ оформлен! Спасибо!');
+
+                    for (const id in products) {
+                        products[id].count = 0;
+                        const parts = id.split('-');
+                        updateCounterDisplay(parts[0], parts[1]);
+                    }
+                    updateBadge();
+                    showPage('menu');
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
